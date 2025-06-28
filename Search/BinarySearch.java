@@ -41,27 +41,35 @@ public class BinarySearch {
     }
 
     public static void main(String[] args) {
-        String datasetFilename = "dataset/quick_sort_result/quick_sort_1000.csv";
-        List<long[]> data = loadDataset(datasetFilename);
+        int[] nList = {1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000, 30000000};
 
-        String outputFilename = "dataset/binary_search_result/binary_search_" + data.size() + ".txt";
+        for (int n : nList) {
+            System.out.println("Processing dataset with " + n + " records");
 
-        Random rand = new Random();
+            String datasetFilename = "dataset/quick_sort_result/quick_sort_" + n + ".csv";
+            String outputFilename = "dataset/binary_search_result/binary_search_" + n + ".txt";
 
-        long target_best = data.get((data.size() - 1) / 2)[0];
-        long target_avg = data.get(rand.nextInt(data.size()))[0];
-        long target_worst = -1;
+            List<long[]> data = loadDataset(datasetFilename);
 
-        double bestCaseTime = binarySearch(data, target_best);
-        double avgCaseTime = binarySearch(data, target_avg);
-        double worstCaseTime = binarySearch(data, target_worst);
+            Random rand = new Random();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilename))) {
-            writer.write(String.format("Best case time   : %.5f ms\n", bestCaseTime));
-            writer.write(String.format("Average case time: %.5f ms\n", avgCaseTime));
-            writer.write(String.format("Worst case time  : %.5f ms\n", worstCaseTime));
-        } catch (IOException e) {
-            e.printStackTrace();
+            long target_best = data.get((data.size() - 1) / 2)[0];
+            long target_avg = data.get(rand.nextInt(data.size()))[0];
+            long target_worst = -1;
+
+            double bestCaseTime = binarySearch(data, target_best);
+            double avgCaseTime = binarySearch(data, target_avg);
+            double worstCaseTime = binarySearch(data, target_worst);
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilename))) {
+                writer.write(String.format("Best case time   : %.5f ms\n", bestCaseTime));
+                writer.write(String.format("Average case time: %.5f ms\n", avgCaseTime));
+                writer.write(String.format("Worst case time  : %.5f ms\n", worstCaseTime));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        
     }
 }

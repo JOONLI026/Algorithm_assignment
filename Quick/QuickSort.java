@@ -57,17 +57,25 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        String datasetFilename = "dataset/generate_dataset/dataset_sample_1000.csv";
-        List<String> data = loadDataset(datasetFilename);
-        String outputFilename = "dataset/quick_sort_result/quick_sort_" + data.size() + ".csv";
+        int[] nList = {1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000, 30000000};
 
-        long startTime = System.nanoTime();
-        quickSort(data, 0, data.size() - 1);
-        long endTime = System.nanoTime();
+        for (int n : nList) {
+            System.out.println("Processing dataset with " + n + " records");
+            String datasetFilename = "dataset/generate_dataset/dataset_sample_" + n + ".csv";
+            String outputFilename = "dataset/quick_sort_result/quick_sort_" + n + ".csv";
 
-        double runningTimeMs = (endTime - startTime) / 1000000;
+            List<String> data = loadDataset(datasetFilename);
 
-        recordResult(data, outputFilename);
-        System.out.printf("Running time: %.2f ms\n", runningTimeMs);
+            long startTime = System.nanoTime();
+            quickSort(data, 0, data.size() - 1);
+            long endTime = System.nanoTime();
+
+            double runningTimeMs = (endTime - startTime) / 1000000;
+
+            recordResult(data, outputFilename);
+            System.out.printf("Running time: %.2f ms\n\n", runningTimeMs);
+
+        }
+        
     }
 }

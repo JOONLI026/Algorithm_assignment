@@ -72,17 +72,24 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        String datasetFilename = "dataset/generate_dataset/dataset_sample_1000.csv";
-        List<String> data = loadDataset(datasetFilename);
-        String outputFilename = "dataset/merge_sort_result/merge_sort_" + data.size() + ".csv";
+        int[] nList = {1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000, 30000000};
 
-        long startTime = System.nanoTime();
-        mergeSort(data);
-        long endTime = System.nanoTime();
+        for (int n : nList) {
+            System.out.println("Processing dataset with " + n + " records");
 
-        double runningTimeMs = (endTime - startTime) / 1000000;
+            String datasetFilename = "dataset/generate_dataset/dataset_sample_" + n + ".csv";
+            String outputFilename = "dataset/merge_sort_result/merge_sort_" + n + ".csv";
 
-        recordResult(data, outputFilename);
-        System.out.printf("Running time: %.2f ms\n", runningTimeMs);
+            List<String> data = loadDataset(datasetFilename);
+
+            long startTime = System.nanoTime();
+            mergeSort(data);
+            long endTime = System.nanoTime();
+
+            double runningTimeMs = (endTime - startTime) / 1000000;
+
+            recordResult(data, outputFilename);
+            System.out.printf("Running time: %.2f ms\n\n", runningTimeMs);
+        }
     }
 }

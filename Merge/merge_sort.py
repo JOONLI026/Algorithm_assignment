@@ -6,18 +6,18 @@ def load_dataset(filename):
     with open(filename, mode='r') as file:
         reader = csv.reader(file)
         for row in reader:
-            # Store just the number as an integer (or long in Java terms)
-           
-            data.append(int(row[0]))
+            data.append(f"{row[0]}/{row[1]}")
     return data
-
 
 def record_step(data, filename):
     with open(filename, 'w', newline='') as file:
         writer = csv.writer(file)
         for item in data:
-            writer.writerow([item]) 
+            num, text = item.split('/')
+            writer.writerow([num, text])
 
+def extract_number(element):
+    return int(element.split('/')[0])
 
 def merge_sort(arr):
     if len(arr) > 1:
@@ -31,8 +31,7 @@ def merge_sort(arr):
         i = j = k = 0
 
         while i < len(L) and j < len(R):
-            # Directly compare numbers, no need for extract_number
-            if L[i] < R[j]:
+            if extract_number(L[i]) < extract_number(R[j]):
                 arr[k] = L[i]
                 i += 1
             else:
@@ -50,18 +49,20 @@ def merge_sort(arr):
             j += 1
             k += 1
 
+n_list = [1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000, 30000000]
 
-dataset_filename = "dataset/generate_dataset/dataset_sample_50000000.csv"
-data = load_dataset(dataset_filename)
-output_filename = f"dataset/merge_sort_result/merge_sort_{len(data)}.csv"
+for n in n_list:
+    print(f"Processing dataset with {n} records")
+    dataset_filename = f"dataset/generate_dataset/dataset_sample_{n}.csv"
+    output_filename = f"dataset/merge_sort_result/merge_sort_{n}.csv"
 
+    data = load_dataset(dataset_filename)
 
-start_time = time.perf_counter()
-merge_sort(data)
-end_time = time.perf_counter()
+    start_time = time.perf_counter()
+    merge_sort(data)
+    end_time = time.perf_counter()
 
+    running_time_ms = (end_time - start_time) * 1000
 
-running_time_ms = (end_time - start_time) * 1000
-
-record_step(data, output_filename)
-print(f"Running time: {running_time_ms:.2f} ms")
+    record_step(data, output_filename)
+    print(f"Running time: {running_time_ms:.2f} ms\n")
