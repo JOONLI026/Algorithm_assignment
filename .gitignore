@@ -180,5 +180,21 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
-# avoid csv file
+# === Java ignores ===
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.iml
+target/
+out/
+*.swp
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.ipr
+
+# Ignore CSV files
 *.csv
