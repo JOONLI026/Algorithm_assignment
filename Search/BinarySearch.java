@@ -61,6 +61,10 @@ public class BinarySearch {
             double avgCaseTime = binarySearch(data, target_avg);
             double worstCaseTime = binarySearch(data, target_worst);
 
+            System.out.printf("Best case time   : %.5f ms%n", bestCaseTime);
+            System.out.printf("Average case time: %.5f ms%n", avgCaseTime);
+            System.out.printf("Worst case time  : %.5f ms%n%n", worstCaseTime);
+
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilename))) {
                 writer.write(String.format("Best case time   : %.5f ms\n", bestCaseTime));
                 writer.write(String.format("Average case time: %.5f ms\n", avgCaseTime));

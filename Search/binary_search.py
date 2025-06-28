@@ -45,6 +45,10 @@ for n in n_list:
     avg_case_time = binary_search(data, target_avg)
     worst_case_time = binary_search(data, target_worst)
 
+    print(f"Best case time   : {best_case_time:.5f} ms")
+    print(f"Average case time: {avg_case_time:.5f} ms")
+    print(f"Worst case time  : {worst_case_time:.5f} ms\n")
+    
     with open(output_filename, 'w') as file:
         file.write(f"Best case time   : {best_case_time:.5f} ms\n")
         file.write(f"Average case time: {avg_case_time:.5f} ms\n")
