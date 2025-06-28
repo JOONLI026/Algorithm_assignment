@@ -6,18 +6,18 @@ def load_dataset(filename):
     with open(filename, mode='r') as file:
         reader = csv.reader(file)
         for row in reader:
-            data.append(f"{row[0]}/{row[1]}")
+            # Store just the number as an integer (or long in Java terms)
+           
+            data.append(int(row[0]))
     return data
+
 
 def record_step(data, filename):
     with open(filename, 'w', newline='') as file:
         writer = csv.writer(file)
         for item in data:
-            num, text = item.split('/')
-            writer.writerow([num, text])
+            writer.writerow([item]) 
 
-def extract_number(element):
-    return int(element.split('/')[0])
 
 def merge_sort(arr):
     if len(arr) > 1:
@@ -31,7 +31,8 @@ def merge_sort(arr):
         i = j = k = 0
 
         while i < len(L) and j < len(R):
-            if extract_number(L[i]) < extract_number(R[j]):
+            # Directly compare numbers, no need for extract_number
+            if L[i] < R[j]:
                 arr[k] = L[i]
                 i += 1
             else:
@@ -49,13 +50,16 @@ def merge_sort(arr):
             j += 1
             k += 1
 
-dataset_filename = "dataset/generate_dataset/dataset_sample_1000.csv"
+
+dataset_filename = "dataset/generate_dataset/dataset_sample_50000000.csv"
 data = load_dataset(dataset_filename)
 output_filename = f"dataset/merge_sort_result/merge_sort_{len(data)}.csv"
+
 
 start_time = time.perf_counter()
 merge_sort(data)
 end_time = time.perf_counter()
+
 
 running_time_ms = (end_time - start_time) * 1000
 
