@@ -15,11 +15,11 @@ def generate_strings(min, max, n):
     return list(strings_list)
 
 
-n_list = [1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000, 50000000]
+n_list = [1000, 5000, 10000, 50000, 100000, 500000, 1000000, 5000000, 10000000, 30000000]
 for n in n_list:
     start_time = time.perf_counter()
 
-    integers = generate_integer(1000000000, 10000000000, n)
+    integers = generate_integer(0, 10000000000, n)
     strings = generate_strings(4, 6, n)
 
     end_time = time.perf_counter()
